@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Lista de Medicamentos - {{ block.super }}
+{% endblock %}
+
+{% block body %}
+  <br />
+  <b>Lista de Medicamentos</b>
+  <br />
+  <br />
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Descricao</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for medication in medication %}
+        <tr>
+          <th>{{ medication.id }}</th>
+          <td>{{ medication.name }}</td>
+          <td>{{ medication.description }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

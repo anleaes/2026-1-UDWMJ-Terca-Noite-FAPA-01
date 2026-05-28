@@ -184,3 +184,4 @@ cython_debug/
 /apps/core/__pycache__/*
 /apps/core/migrations/*
 /wallet*
+/projetoapp/__pycache__/*

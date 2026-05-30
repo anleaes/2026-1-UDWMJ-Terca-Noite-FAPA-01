@@ -1,20 +1,25 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  Lista de Cids - {{ block.super }}
+  Lista de CIDs - {{ block.super }}
 {% endblock %}
 
 {% block body %}
+   <br />
+    <a href="{% url 'cids:add_cid' %}">Cadastro de novo CID</a>
   <br />
-  <b>Lista de Cids</b>
+  <br />
+  <b>Lista de CIDs</b>
   <br />
   <br />
   <table border="1">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Nome</th>
+        <th>Código</th>
         <th>Descricao</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +28,12 @@
           <th>{{ cid.id }}</th>
           <td>{{ cid.name }}</td>
           <td>{{ cid.description }}</td>
+          <td>
+            <a href="{% url 'cids:edit_cid' cid.id %}">Editar</a>
+          </td>
+          <td>
+            <a href="{% url 'cids:delete_cid' cid.id %}" >Excluir</a>
+          </td>
         </tr>
       {% endfor %}
     </tbody>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Editar Paciente{% else %}Novo Paciente{% endif %} - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>{% if form.instance.pk %}Editar Paciente{% else %}Novo Paciente{% endif %}</h1>
+    <div class="subtitle">Cadastro de paciente</div>
+  </div>
+  <a href="{% url 'patients:list_patients' %}" class="btn btn-ghost">← Voltar</a>
+</div>
+<div class="form-card">
+  <form method="POST">
+    {% csrf_token %}
+    <p class="section-title">Dados Pessoais</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="id_name">Nome</label>
+        {{ form.name }}
+        {{ form.name.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_cpf">CPF</label>
+        {{ form.cpf }}
+        {{ form.cpf.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_birth_date">Data de Nascimento</label>
+        {{ form.birth_date }}
+        {{ form.birth_date.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_sex">Sexo</label>
+        {{ form.sex }}
+        {{ form.sex.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_email">E-mail</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+    </div>
+    <p class="section-title" style="margin-top:24px">Dados do Paciente</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="id_emergency_contact">Contato de Emergência</label>
+        {{ form.emergency_contact }}
+        {{ form.emergency_contact.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_health_insurance">Convênio</label>
+        {{ form.health_insurance }}
+        {{ form.health_insurance.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_allergies">Alergias (Histórico)</label>
+        {{ form.allergies }}
+        {{ form.allergies.errors }}
+      </div>
+    </div>
+    <div class="form-actions">
+      <a href="{% url 'patients:list_patients' %}" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>
+{% endblock body %}

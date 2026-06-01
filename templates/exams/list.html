@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Exames - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Exames</h1>
+    <div class="subtitle">Lista de exames solicitados</div>
+  </div>
+  <a href="{% url 'exams:add_exam' %}" class="btn btn-primary">+ Novo Exame</a>
+</div>
+<div class="table-card">
+  <table>
+    <thead>
+      <tr><th>Consulta</th><th>Tipo</th><th>Status</th><th>Solicitado em</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for e in exams %}
+      <tr>
+        <td class="td-muted">{{ e.consult }}</td>
+        <td>{{ e.exam_type }}</td>
+        <td><span class="badge badge-blue">{{ e.get_status_display }}</span></td>
+        <td class="td-muted">{{ e.request_date|date:"d/m/Y" }}</td>
+        <td><div class="actions">
+          <a href="{% url 'exams:edit_exam' e.id %}" class="btn btn-sm btn-ghost">Editar</a>
+          <a href="{% url 'exams:delete_exam' e.id %}" class="btn btn-sm btn-danger">Excluir</a>
+        </div></td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="5">Nenhum exame cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

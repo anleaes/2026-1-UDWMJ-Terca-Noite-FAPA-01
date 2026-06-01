@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Editar Histórico{% else %}Novo Histórico Médico{% endif %} - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>{% if form.instance.pk %}Editar Histórico{% else %}Novo Histórico Médico{% endif %}</h1>
+    <div class="subtitle">Registro de histórico médico</div>
+  </div>
+  <a href="{% url 'medicalhistories:list_medicalhistories' %}" class="btn btn-ghost">← Voltar</a>
+</div>
+<div class="form-card">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="id_allergies">Alergias</label>
+        {{ form.allergies }}
+        {{ form.allergies.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_family_history">Histórico Familiar</label>
+        {{ form.family_history }}
+        {{ form.family_history.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_notes">Notas</label>
+        {{ form.notes }}
+        {{ form.notes.errors }}
+      </div>
+    </div>
+    <div class="form-actions">
+      <a href="{% url 'medicalhistories:list_medicalhistories' %}" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>
+{% endblock body %}

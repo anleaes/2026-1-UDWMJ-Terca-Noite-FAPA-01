@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Históricos Médicos - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Históricos Médicos</h1>
+    <div class="subtitle">Registros de históricos médicos</div>
+  </div>
+  <a href="{% url 'medicalhistories:add_medicalhistory' %}" class="btn btn-primary">+ Novo Histórico</a>
+</div>
+<div class="table-card">
+  <table>
+    <thead>
+      <tr><th>#</th><th>Alergias</th><th>Histórico Familiar</th><th>Notas</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for h in histories %}
+      <tr>
+        <td class="td-mono">{{ h.id }}</td>
+        <td class="td-muted">{{ h.allergies|truncatechars:40 }}</td>
+        <td class="td-muted">{{ h.family_history|truncatechars:40 }}</td>
+        <td class="td-muted">{{ h.notes|truncatechars:30 }}</td>
+        <td><div class="actions">
+          <a href="{% url 'medicalhistories:edit_medicalhistory' h.id %}" class="btn btn-sm btn-ghost">Editar</a>
+          <a href="{% url 'medicalhistories:delete_medicalhistory' h.id %}" class="btn btn-sm btn-danger">Excluir</a>
+        </div></td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="5">Nenhum histórico cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

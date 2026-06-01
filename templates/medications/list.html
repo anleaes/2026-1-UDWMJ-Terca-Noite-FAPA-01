@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Medicamentos - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Medicamentos</h1>
+    <div class="subtitle">Lista de medicamentos cadastrados</div>
+  </div>
+  <a href="{% url 'medications:add_medication' %}" class="btn btn-primary">+ Novo Medicamento</a>
+</div>
+<div class="table-card">
+  <table>
+    <thead>
+      <tr><th>Medicamento</th><th>Marca</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for med in medications %}
+      <tr>
+        <td>{{ med.medication }}</td>
+        <td class="td-muted">{{ med.brand }}</td>
+        <td><div class="actions">
+          <a href="{% url 'medications:edit_medication' med.id %}" class="btn btn-sm btn-ghost">Editar</a>
+          <a href="{% url 'medications:delete_medication' med.id %}" class="btn btn-sm btn-danger">Excluir</a>
+        </div></td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="3">Nenhum medicamento cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

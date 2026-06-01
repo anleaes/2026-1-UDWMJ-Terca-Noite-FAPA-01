@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>{% block title %}Sistema Médico{% endblock title %}</title>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="logo">Clínica<span>App</span></div>
+
+    <span class="nav-section">Cadastros</span>
+    <a href="{% url 'cids:list_cids' %}"                         class="nav-item">🏷 CIDs</a>
+    <a href="{% url 'medications:list_medications' %}"            class="nav-item">💊 Medicamentos</a>
+    <a href="{% url 'medicalhistories:list_medicalhistories' %}"  class="nav-item">📋 Históricos</a>
+
+    <span class="nav-section">Pessoas</span>
+    <a href="{% url 'patients:list_patients' %}"   class="nav-item">🧑 Pacientes</a>
+    <a href="{% url 'doctors:list_doctors' %}"     class="nav-item">🩺 Médicos</a>
+
+    <span class="nav-section">Atendimento</span>
+    <a href="{% url 'consults:list_consults' %}"         class="nav-item">📅 Consultas</a>
+    <a href="{% url 'exams:list_exams' %}"               class="nav-item">🔬 Exames</a>
+    <a href="{% url 'prescriptions:list_prescriptions' %}" class="nav-item">📝 Receitas</a>
+  </aside>
+
+  <main class="main">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    {% block body %}
+    {% endblock body %}
+  </main>
+
+</body>
+</html>

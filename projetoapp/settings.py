@@ -10,12 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
-import sys 
+import sys
 from pathlib import Path
 from decouple import config
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APPS_DIR = os.path.join(BASE_DIR, 'apps') 
@@ -46,7 +47,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
-    'cids.apps.CidsConfig', 
+    'persons.apps.PersonsConfig',
+    'cids.apps.CidsConfig',
+    'medications.apps.MedicationsConfig',
+    'medicalhistories.apps.MedicalhistoriesConfig',
+    'patients.apps.PatientsConfig',
+    'doctors.apps.DoctorsConfig',
+    'consults.apps.ConsultsConfig',
+    'exams.apps.ExamsConfig',
+    'prescriptions.apps.PrescriptionsConfig',
+    'prescriptionitems.apps.PrescriptionitemsConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,12 +142,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIRS = [ 
-    os.path.join(BASE_DIR, 'staticfiles'), 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  
 ]
 
 MEDIA_URL = '/media/' 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 

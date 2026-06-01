@@ -1,14 +1,16 @@
 from django.db import models
 
 # Create your models here.
+ 
 class Cid(models.Model):
-    name = models.CharField('Nome', max_length=50)
-    description = models.TextField('Descricao', max_length=100) 
-    
+    name        = models.CharField('Nome', max_length=50)
+    description = models.TextField('Descrição')
+ 
     class Meta:
-        verbose_name = 'Cid'
-        verbose_name_plural = 'Cids'
-        ordering =['id']
-
+        verbose_name = 'CID'
+        verbose_name_plural = 'CIDs'
+        ordering = ['name']
+ 
     def __str__(self):
-        return f'{self.id} - {self.name}'
+        return self.name
+ 

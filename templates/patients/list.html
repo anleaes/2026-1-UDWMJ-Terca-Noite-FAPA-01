@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Pacientes - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Pacientes</h1>
+    <div class="subtitle">Lista de pacientes cadastrados</div>
+  </div>
+  <a href="{% url 'patients:add_patient' %}" class="btn btn-primary">+ Novo Paciente</a>
+</div>
+<div class="table-card">
+  <table>
+    <thead>
+      <tr><th>Nome</th><th>CPF</th><th>Convênio</th><th>Contato Emergência</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for p in patients %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td class="td-mono">{{ p.cpf }}</td>
+        <td class="td-muted">{{ p.health_insurance }}</td>
+        <td class="td-muted">{{ p.emergency_contact }}</td>
+        <td><div class="actions">
+          <a href="{% url 'patients:edit_patient' p.id %}" class="btn btn-sm btn-ghost">Editar</a>
+          <a href="{% url 'patients:delete_patient' p.id %}" class="btn btn-sm btn-danger">Excluir</a>
+        </div></td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="5">Nenhum paciente cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

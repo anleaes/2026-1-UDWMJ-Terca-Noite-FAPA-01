@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Médicos - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Médicos</h1>
+    <div class="subtitle">Lista de médicos cadastrados</div>
+  </div>
+  <a href="{% url 'doctors:add_doctor' %}" class="btn btn-primary">+ Novo Médico</a>
+</div>
+<div class="table-card">
+  <table>
+    <thead>
+      <tr><th>Nome</th><th>CRM</th><th>Especialidade</th><th>E-mail</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for d in doctors %}
+      <tr>
+        <td>{{ d.name }}</td>
+        <td class="td-mono">{{ d.crm }}</td>
+        <td class="td-muted">{{ d.specialty }}</td>
+        <td class="td-muted">{{ d.email }}</td>
+        <td><div class="actions">
+          <a href="{% url 'doctors:edit_doctor' d.id %}" class="btn btn-sm btn-ghost">Editar</a>
+          <a href="{% url 'doctors:delete_doctor' d.id %}" class="btn btn-sm btn-danger">Excluir</a>
+        </div></td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="5">Nenhum médico cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}CIDs - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>CIDs</h1>
+    <div class="subtitle">Classificações Internacionais de Doenças</div>
+  </div>
+  <a href="{% url 'cids:add_cid' %}" class="btn btn-primary">+ Novo CID</a>
+</div>
+
+<div class="toolbar">
+  <form method="GET">
+    <input class="search-input" type="text" name="q" placeholder="Buscar CID..." value="{{ request.GET.q }}">
+  </form>
+</div>
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cid in cids %}
+      <tr>
+        <td>{{ cid.name }}</td>
+        <td class="td-muted">{{ cid.description|truncatechars:60 }}</td>
+        <td>
+          <div class="actions">
+            <a href="{% url 'cids:edit_cid' cid.id %}" class="btn btn-sm btn-ghost">Editar</a>
+            <a href="{% url 'cids:delete_cid' cid.id %}" class="btn btn-sm btn-danger">Excluir</a>
+          </div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr class="empty-row"><td colspan="3">Nenhum CID cadastrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock body %}

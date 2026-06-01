@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Editar Consulta{% else %}Nova Consulta{% endif %} - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>{% if form.instance.pk %}Editar Consulta{% else %}Nova Consulta{% endif %}</h1>
+    <div class="subtitle">Agendamento e registro de consulta</div>
+  </div>
+  <a href="{% url 'consults:list_consults' %}" class="btn btn-ghost">← Voltar</a>
+</div>
+<div class="form-card">
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="id_patient">Paciente</label>
+        {{ form.patient }}
+        {{ form.patient.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_doctor">Médico</label>
+        {{ form.doctor }}
+        {{ form.doctor.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_appointment_date">Data/Hora</label>
+        {{ form.appointment_date }}
+        {{ form.appointment_date.errors }}
+      </div>
+      <div class="form-group">
+        <label for="id_status">Status</label>
+        {{ form.status }}
+        {{ form.status.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_cid">CIDs</label>
+        {{ form.cid }}
+        {{ form.cid.errors }}
+      </div>
+      <div class="form-group full">
+        <label for="id_anamnesis">Anamnese</label>
+        {{ form.anamnesis }}
+        {{ form.anamnesis.errors }}
+      </div>
+    </div>
+    <div class="form-actions">
+      <a href="{% url 'consults:list_consults' %}" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+  </form>
+</div>
+{% endblock body %}

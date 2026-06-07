@@ -2,22 +2,27 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import PatientForm
+from .forms import PatientForm, PatientCreateForm
 from .models import Patient
- 
+from medicalhistories.models import MedicalHistory
+
 def add_patient(request):
     template_name = 'patients/add.html'
-    context = {}
     if request.method == 'POST':
-        form = PatientForm(request.POST)
+        form = PatientCreateForm(request.POST)
         if form.is_valid():
-            f = form.save(commit=False)
-            f.save()
-            form.save_m2m()
+            patient = form.save(commit=False)
+            history = MedicalHistory.objects.create(
+                patient_name=patient.name,
+                allergies=form.cleaned_data.get('allergies_text', ''),
+                family_history=form.cleaned_data.get('family_history_text', ''),
+            )
+            patient.allergies = history
+            patient.save()
             return redirect('patients:list_patients')
-    form = PatientForm()
-    context['form'] = form
-    return render(request, template_name, context)
+    else:
+        form = PatientCreateForm()
+    return render(request, template_name, {'form': form})
  
 def list_patients(request):
     template_name = 'patients/list.html'

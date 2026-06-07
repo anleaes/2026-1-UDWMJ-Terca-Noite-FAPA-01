@@ -5,12 +5,12 @@ from django.db import models
 class MedicalHistory(models.Model):
     allergies      = models.TextField('Alergias')
     family_history = models.TextField('Histórico Familiar')
-    notes          = models.CharField('Notas', max_length=200)
- 
+    patient_name   = models.CharField('Nome do Paciente', max_length=200)
+
     class Meta:
         verbose_name = 'Histórico Médico'
         verbose_name_plural = 'Históricos Médicos'
         ordering = ['id']
- 
+
     def __str__(self):
-        return f'Histórico #{self.pk}'
+        return self.patient_name if self.patient_name else f'Histórico #{self.pk}'

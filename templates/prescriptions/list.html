@@ -19,7 +19,7 @@
       {% for r in prescriptions %}
       <tr>
         <td class="td-mono">{{ r.id }}</td>
-        <td>{{ r.patient }}</td>
+        <td><a href="{% url 'prescriptions:view_prescription' r.id %}">{{ r.patient }}</a></td>
         <td class="td-muted">{{ r.doctor }}</td>
         <td class="td-muted">{{ r.issue_date|date:"d/m/Y" }}</td>
         <td class="td-mono">{{ r.items.count }}</td>

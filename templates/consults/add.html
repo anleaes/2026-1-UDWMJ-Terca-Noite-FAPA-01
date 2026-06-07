@@ -35,8 +35,12 @@
         {{ form.status.errors }}
       </div>
       <div class="form-group full">
-        <label for="id_cid">CIDs</label>
-        {{ form.cid }}
+        <details class="cid-dropdown">
+          <summary>Selecionar CIDs</summary>
+          <div class="cid-list">
+            {{ form.cid }}
+          </div>
+        </details>
         {{ form.cid.errors }}
       </div>
       <div class="form-group full">
@@ -45,6 +49,17 @@
         {{ form.anamnesis.errors }}
       </div>
     </div>
+    {% if not form.instance.pk %}
+    <div class="form-grid" style="margin-top:16px">
+      <div class="form-group">
+        <label for="id_exame">Exame?</label>
+        <select name="exame" id="id_exame">
+          <option value="N" selected>Não</option>
+          <option value="S">Sim</option>
+        </select>
+      </div>
+    </div>
+    {% endif %}
     <div class="form-actions">
       <a href="{% url 'consults:list_consults' %}" class="btn btn-ghost">Cancelar</a>
       <button type="submit" class="btn btn-primary">Salvar</button>

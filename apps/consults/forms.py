@@ -1,13 +1,18 @@
 from django import forms
 from .models import Consult
- 
+
 class ConsultForm(forms.ModelForm):
+    appointment_date = forms.DateTimeField(
+        label='Data/Hora',
+        input_formats=['%Y-%m-%dT%H:%M', '%Y-%m-%d %H:%M'],
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M')
+    )
+
     class Meta:
         model = Consult
         exclude = ()
         widgets = {
-            'appointment_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
-            'anamnesis':        forms.Textarea(attrs={'rows': 4}),
-            'cid':              forms.SelectMultiple(attrs={'size': 6}),
+            'anamnesis': forms.Textarea(attrs={'rows': 4}),
+            'cid':       forms.CheckboxSelectMultiple(),
         }
  

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Consulta #{{ consult.id }} - {{ block.super }}{% endblock title %}
+
+{% block body %}
+<div class="page-header">
+  <div>
+    <h1>Consulta #{{ consult.id }}</h1>
+    <div class="subtitle">{{ consult.get_status_display }}</div>
+  </div>
+  <div class="actions">
+    <a href="{% url 'consults:list_consults' %}" class="btn btn-ghost">← Voltar</a>
+    <a href="{% url 'consults:edit_consult' consult.id %}" class="btn btn-ghost">Editar</a>
+    <a href="{% url 'consults:delete_consult' consult.id %}" class="btn btn-danger">Excluir</a>
+  </div>
+</div>
+
+<div class="form-card">
+  <p class="section-title">Dados da Consulta</p>
+  <div class="form-grid">
+    <div class="form-group">
+      <label>Paciente</label>
+      <div class="field-value">{{ consult.patient.name }}</div>
+    </div>
+    <div class="form-group">
+      <label>Médico</label>
+      <div class="field-value">{{ consult.doctor.name }}</div>
+    </div>
+    <div class="form-group">
+      <label>Data/Hora</label>
+      <div class="field-value">{{ consult.appointment_date|date:"d/m/Y H:i" }}</div>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <div class="field-value">{{ consult.get_status_display }}</div>
+    </div>
+    {% if consult.cid.exists %}
+    <div class="form-group full">
+      <label>CIDs</label>
+      <div class="field-value">{% for c in consult.cid.all %}{{ c.code }} — {{ c.description }}{% if not forloop.last %}, {% endif %}{% endfor %}</div>
+    </div>
+    {% endif %}
+    {% if consult.anamnesis %}
+    <div class="form-group full">
+      <label>Anamnese</label>
+      <div class="field-value">{{ consult.anamnesis }}</div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock body %}

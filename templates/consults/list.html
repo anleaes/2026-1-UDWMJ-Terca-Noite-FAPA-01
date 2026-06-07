@@ -19,7 +19,7 @@
       {% for c in consults %}
       <tr>
         <td class="td-mono">{{ c.id }}</td>
-        <td>{{ c.patient }}</td>
+        <td><a href="{% url 'consults:view_consult' c.id %}">{{ c.patient }}</a></td>
         <td class="td-muted">{{ c.doctor }}</td>
         <td class="td-muted">{{ c.appointment_date|date:"d/m/Y H:i" }}</td>
         <td><span class="badge badge-blue">{{ c.get_status_display }}</span></td>

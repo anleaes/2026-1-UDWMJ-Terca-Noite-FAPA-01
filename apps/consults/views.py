@@ -6,18 +6,22 @@ from .models import Consult
  
 def add_consult(request):
     template_name = 'consults/add.html'
-    context = {}
     if request.method == 'POST':
         form = ConsultForm(request.POST)
         if form.is_valid():
             f = form.save(commit=False)
             f.save()
             form.save_m2m()
+            if request.POST.get('exame') == 'S':
+                return redirect('exams:add_exam')
             return redirect('consults:list_consults')
     form = ConsultForm()
-    context['form'] = form
-    return render(request, template_name, context)
+    return render(request, template_name, {'form': form})
  
+def view_consult(request, id_consult):
+    consult = get_object_or_404(Consult.objects.select_related('patient', 'doctor').prefetch_related('cid'), id=id_consult)
+    return render(request, 'consults/view.html', {'consult': consult})
+
 def list_consults(request):
     template_name = 'consults/list.html'
     consults = Consult.objects.select_related('patient', 'doctor')

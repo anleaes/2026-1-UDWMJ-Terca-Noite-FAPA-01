@@ -28,6 +28,10 @@ def add_prescription(request):
     context['formset'] = formset
     return render(request, template_name, context)
  
+def view_prescription(request, id_prescription):
+    prescription = get_object_or_404(Prescription.objects.select_related('patient', 'doctor', 'consult').prefetch_related('items__medication'), id=id_prescription)
+    return render(request, 'prescriptions/view.html', {'prescription': prescription})
+
 def list_prescriptions(request):
     template_name = 'prescriptions/list.html'
     prescriptions = Prescription.objects.select_related('patient', 'doctor')

@@ -6,6 +6,7 @@ app_name = 'patients'
 urlpatterns = [
     path('listar/',                        views.list_patients,  name='list_patients'),
     path('adicionar/',                     views.add_patient,    name='add_patient'),
+    path('ver/<int:id_patient>/',          views.view_patient,   name='view_patient'),
     path('editar/<int:id_patient>/',       views.edit_patient,   name='edit_patient'),
     path('excluir/<int:id_patient>/',      views.delete_patient, name='delete_patient'),
 ]

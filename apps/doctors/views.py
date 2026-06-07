@@ -17,6 +17,10 @@ def add_doctor(request):
     context['form'] = form
     return render(request, template_name, context)
  
+def view_doctor(request, id_doctor):
+    doctor = get_object_or_404(Doctor, id=id_doctor)
+    return render(request, 'doctors/view.html', {'doctor': doctor})
+
 def list_doctors(request):
     template_name = 'doctors/list.html'
     doctors = Doctor.objects.filter()

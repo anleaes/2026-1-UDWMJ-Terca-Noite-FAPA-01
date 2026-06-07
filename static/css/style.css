@@ -261,6 +261,13 @@ td {
   font-size: 13px;
 }
 
+tbody td a,
+tbody td a:link,
+tbody td a:visited {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .td-mono {
   font-family: var(--mono);
   font-size: 13px;

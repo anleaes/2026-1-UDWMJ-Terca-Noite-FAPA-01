@@ -18,7 +18,7 @@
     <tbody>
       {% for p in patients %}
       <tr>
-        <td>{{ p.name }}</td>
+        <td><a href="{% url 'patients:view_patient' p.id %}">{{ p.name }}</a></td>
         <td class="td-mono">{{ p.cpf }}</td>
         <td class="td-muted">{{ p.health_insurance }}</td>
         <td class="td-muted">{{ p.emergency_contact }}</td>

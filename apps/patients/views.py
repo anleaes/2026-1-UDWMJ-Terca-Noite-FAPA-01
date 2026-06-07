@@ -24,6 +24,10 @@ def add_patient(request):
         form = PatientCreateForm()
     return render(request, template_name, {'form': form})
  
+def view_patient(request, id_patient):
+    patient = get_object_or_404(Patient, id=id_patient)
+    return render(request, 'patients/view.html', {'patient': patient})
+
 def list_patients(request):
     template_name = 'patients/list.html'
     patients = Patient.objects.filter()

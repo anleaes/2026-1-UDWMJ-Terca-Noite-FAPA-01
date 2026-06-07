@@ -18,7 +18,7 @@
     <tbody>
       {% for d in doctors %}
       <tr>
-        <td>{{ d.name }}</td>
+        <td><a href="{% url 'doctors:view_doctor' d.id %}">{{ d.name }}</a></td>
         <td class="td-mono">{{ d.crm }}</td>
         <td class="td-muted">{{ d.specialty }}</td>
         <td class="td-muted">{{ d.email }}</td>

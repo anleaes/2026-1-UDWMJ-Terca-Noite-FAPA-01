@@ -37,7 +37,10 @@
       <div class="form-group full">
         <details class="cid-dropdown">
           <summary>Selecionar CIDs</summary>
-          <div class="cid-list">
+          <div style="padding:8px 12px; border-top:1px solid var(--border)">
+            <input id="cid-search" type="text" placeholder="Buscar por código ou doença..." style="width:100%; padding:8px 10px; background:var(--bg); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:13px; outline:none;" autocomplete="off" />
+          </div>
+          <div class="cid-list" id="cid-list">
             {{ form.cid }}
           </div>
         </details>
@@ -67,3 +70,12 @@
   </form>
 </div>
 {% endblock body %}
+
+<script>
+document.getElementById('cid-search').addEventListener('input', function () {
+  const q = this.value.trim().toLowerCase()
+  document.querySelectorAll('#cid-list label').forEach(function (label) {
+    label.style.display = label.textContent.toLowerCase().includes(q) ? '' : 'none'
+  })
+})
+</script>

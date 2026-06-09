@@ -1,12 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ExamForm
 from .models import Exam
- 
-# Create your views here.
 
 def add_exam(request):
     template_name = 'exams/add.html'
-    context = {}
     if request.method == 'POST':
         form = ExamForm(request.POST)
         if form.is_valid():
@@ -15,18 +12,16 @@ def add_exam(request):
             form.save_m2m()
             return redirect('exams:list_exams')
     form = ExamForm()
-    context['form'] = form
-    return render(request, template_name, context)
- 
+    return render(request, template_name, {'form': form})
+
 def list_exams(request):
     template_name = 'exams/list.html'
     exams = Exam.objects.select_related('consult')
     context = {'exams': exams}
     return render(request, template_name, context)
- 
+
 def edit_exam(request, id_exam):
     template_name = 'exams/add.html'
-    context = {}
     exam = get_object_or_404(Exam, id=id_exam)
     if request.method == 'POST':
         form = ExamForm(request.POST, instance=exam)
@@ -34,11 +29,9 @@ def edit_exam(request, id_exam):
             form.save()
             return redirect('exams:list_exams')
     form = ExamForm(instance=exam)
-    context['form'] = form
-    return render(request, template_name, context)
- 
+    return render(request, template_name, {'form': form})
+
 def delete_exam(request, id_exam):
     exam = Exam.objects.get(id=id_exam)
     exam.delete()
     return redirect('exams:list_exams')
- 

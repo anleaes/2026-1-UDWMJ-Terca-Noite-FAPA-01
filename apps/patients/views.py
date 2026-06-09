@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PatientForm, PatientCreateForm
 from .models import Patient
@@ -23,7 +20,7 @@ def add_patient(request):
     else:
         form = PatientCreateForm()
     return render(request, template_name, {'form': form})
- 
+
 def view_patient(request, id_patient):
     patient = get_object_or_404(Patient, id=id_patient)
     return render(request, 'patients/view.html', {'patient': patient})
@@ -33,10 +30,9 @@ def list_patients(request):
     patients = Patient.objects.filter()
     context = {'patients': patients}
     return render(request, template_name, context)
- 
+
 def edit_patient(request, id_patient):
     template_name = 'patients/add.html'
-    context = {}
     patient = get_object_or_404(Patient, id=id_patient)
     if request.method == 'POST':
         form = PatientForm(request.POST, instance=patient)
@@ -44,11 +40,9 @@ def edit_patient(request, id_patient):
             form.save()
             return redirect('patients:list_patients')
     form = PatientForm(instance=patient)
-    context['form'] = form
-    return render(request, template_name, context)
- 
+    return render(request, template_name, {'form': form})
+
 def delete_patient(request, id_patient):
     patient = Patient.objects.get(id=id_patient)
     patient.delete()
     return redirect('patients:list_patients')
- 

@@ -4,16 +4,14 @@ from .forms import PrescriptionForm
 from .models import Prescription
 from prescriptionitems.models import PrescriptionItem
 
-# Create your views here.
 PrescriptionItemFormSet = inlineformset_factory(
     Prescription, PrescriptionItem,
     fields=['medication', 'quantity', 'dosage', 'frequency', 'duration'],
     extra=1, can_delete=True
 )
- 
+
 def add_prescription(request):
     template_name = 'prescriptions/add.html'
-    context = {}
     if request.method == 'POST':
         form = PrescriptionForm(request.POST)
         formset = PrescriptionItemFormSet(request.POST)
@@ -24,10 +22,8 @@ def add_prescription(request):
             return redirect('prescriptions:list_prescriptions')
     form = PrescriptionForm()
     formset = PrescriptionItemFormSet()
-    context['form'] = form
-    context['formset'] = formset
-    return render(request, template_name, context)
- 
+    return render(request, template_name, {'form': form, 'formset': formset})
+
 def view_prescription(request, id_prescription):
     prescription = get_object_or_404(Prescription.objects.select_related('patient', 'doctor', 'consult').prefetch_related('items__medication'), id=id_prescription)
     return render(request, 'prescriptions/view.html', {'prescription': prescription})
@@ -37,10 +33,9 @@ def list_prescriptions(request):
     prescriptions = Prescription.objects.select_related('patient', 'doctor')
     context = {'prescriptions': prescriptions}
     return render(request, template_name, context)
- 
+
 def edit_prescription(request, id_prescription):
     template_name = 'prescriptions/add.html'
-    context = {}
     prescription = get_object_or_404(Prescription, id=id_prescription)
     if request.method == 'POST':
         form = PrescriptionForm(request.POST, instance=prescription)
@@ -51,12 +46,9 @@ def edit_prescription(request, id_prescription):
             return redirect('prescriptions:list_prescriptions')
     form = PrescriptionForm(instance=prescription)
     formset = PrescriptionItemFormSet(instance=prescription)
-    context['form'] = form
-    context['formset'] = formset
-    return render(request, template_name, context)
- 
+    return render(request, template_name, {'form': form, 'formset': formset})
+
 def delete_prescription(request, id_prescription):
     prescription = Prescription.objects.get(id=id_prescription)
     prescription.delete()
     return redirect('prescriptions:list_prescriptions')
- 
